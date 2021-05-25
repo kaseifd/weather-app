@@ -5,7 +5,7 @@ mapboxgl.accessToken = 'pk.eyJ1Ijoia2FzZWlmZCIsImEiOiJja29qcDk3NzQwZTM0Mm9ud3Bwc
 
 
 window.addEventListener("load", () => {
-    loadMapView();
+    //loadMapView();
     
     //render
     renderApp()
