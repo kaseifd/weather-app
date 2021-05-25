@@ -1,13 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather App</title>
-  </head>
-  <body>
-    <div id="app"></div>
+</head>
+
+<body>
+    <div class="app">
+        <div class="header"></div>
+        <div class="main" id="mapa"></div>
+        <div class="footer">
+            <div class="categories">
+                <div class="marked">
+                    <div class="fa fa-map-marker-alt"></div>
+                </div>
+                <div class="favs">
+                    <div class="fa fa-star"></div>
+                </div>
+                <div class="museums">
+                    <div class="fa fa-university"></div>
+                </div>
+                <div class="restaurants">
+                    <div class="fa fa-utensils"></div>
+                </div>
+                <div class="pub">
+                    <div class="fa fa-glass-martini-alt"></div>
+                </div>
+                <div class="forest">
+                    <div class="fa fa-tree"></div>
+                </div>
+                <div class="shop">
+                    <div class="fa fa-shopping-bag"></div>
+                </div>
+            </div>
+            <div class="go_position">
+                <div class="position">
+                    <div class="fa fa-crosshairs"></div>
+                    <p>Go to my position</p>
+                </div>
+            </div>
+        </div>
+        <div class="spinner">
+            <div class="fa fa-spinner fa-spin"></div>
+        </div>
+        <div class="black_overlay"></div>
+        <div class="overlay">
+            <header>
+                <h1 class="place">Parla</h1>
+                <div class="close">
+                    <div class="fa fa-times"></div>
+                </div>
+            </header>
+
+            <main>
+                <div class="weather_list">
+                    <div class="weather_list_item">
+
+                        <div class="time">14:00</div>
+
+                        <div class="weather">
+                            <div class="weather_icon">
+                                <div class="fa fa-cloud"></div>
+                            </div>
+                            <div class="temperature">22°C</div>
+                        </div>
+
+                        <div class="wind">
+                            <div class="direction">
+                                <div class="fa fa-location-arrow"></div>
+                            </div>
+                            <div class="velocity">14.78mph</div>
+                        </div>
+
+                    </div>
+                    <div class="weather_list_item">
+
+                        <div class="time">14:00</div>
+
+                        <div class="weather">
+                            <div class="weather_icon">
+                                <div class="fa fa-cloud"></div>
+                            </div>
+                            <div class="temperature">22°C</div>
+                        </div>
+
+                        <div class="wind">
+                            <div class="direction">
+                                <div class="fa fa-location-arrow"></div>
+                            </div>
+                            <div class="velocity">14.78mph</div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </main>
+
+            <footer>
+                <div class="close">
+                    <div class="back">
+                        <div class="fa fa-arrow-left"></div>
+                        <p>Get back to map</p>
+                    </div>
+                </div>
+                <div class="save_place">
+                    <div class="save">
+                        <div class="fa fa-save"></div>
+                        <p>Save place</p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
     <script type="module" src="/app/main.js"></script>
-  </body>
+</body>
+
 </html>

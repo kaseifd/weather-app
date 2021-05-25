@@ -9,5 +9,8 @@
   "devDependencies": {
     "sass": "^1.32.13",
     "vite": "^2.3.3"
+  },
+  "dependencies": {
+    "mapbox-gl": "^2.2.0"
   }
 }
