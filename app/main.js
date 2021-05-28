@@ -4,16 +4,14 @@ import mapboxgl from 'mapbox-gl';
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2FzZWlmZCIsImEiOiJja29qcDk3NzQwZTM0Mm9ud3BwcTRkMW0yIn0.4XuTSFjZUS1tI0MGezz4Qw';
 
 
+//ORGANIZACIÓN 
+
 window.addEventListener("load", () => {
-    //loadMapView();
-    
-    //render
-    renderApp()
+    loadMapView();
+    renderMap();
+    // renderMarkers();
+    initMapEvents();
 
-
-    //eventos
-    eventsMapView();
-    
 });
 
 let map;
@@ -24,18 +22,83 @@ const main = app.querySelector(".main");
 const footer = app.querySelector(".footer");
 const overlay = app.querySelector(".overlay");
 const blackOverlay = app.querySelector(".black_overlay");
-let view;
+
+let weather 
 
 
 
-const renderApp = () => {
-    renderHeader();
-    renderMap();
-    renderFooter();
-    
-};
+
+//TAREA 1: CARGAR MAPVIEW
+
+let markers;
+let mapPosition;
+
+const loadMarkers = () => {
+    //localStorage
+}
+
+const loadMapInfo = () => {
+    //localStorage
+}
 
 
+const loadMapView = () => {
+    loadMarkers();
+    loadMapInfo();
+    renderMapViewHeader();
+    renderMapViewMain();
+    renderMapViewFooter();
+}
+
+const renderMapViewHeader = () => {
+    header.innerHTML = `
+        <div class="header_brand">
+            <img src="/assets/img/logo.png" alt="">
+        </div>
+        <div class="profile">
+            <div class="user">
+                <div class="fa fa-user-circle"></div>
+            </div>
+        </div> 
+    `
+}
+const renderMapViewMain = () => {
+    renderMap()
+}
+const renderMapViewFooter = () => {
+    footer.innerHTML = `
+    <div class="categories">
+        <div class="marked icon">
+            <div class="fas fa-map-marker-alt"></div>
+        </div>
+        <div class="favs icon">
+            <div class="fas fa-star"></div>
+        </div>
+        <div class="museums icon">
+            <div class="fas fa-university"></div>
+        </div>
+        <div class="restaurants icon">
+            <div class="fas fa-utensils"></div>
+        </div>
+        <div class="pub icon">
+            <div class="fas fa-glass-martini-alt"></div>
+        </div>
+        <div class="forest icon">
+            <div class="fas fa-tree"></div>
+        </div>
+        <div class="shop icon">
+            <div class="fas fa-shopping-bag"></div>
+        </div>
+    </div>
+    <div class="go_position">
+        <div class="position ">
+            <div class="fas fa-crosshairs "></div>
+            <p>Go to my position</p>
+        </div>
+    </div>
+`
+    goPosition();
+}
 
 const renderMap = () => {
     map = new mapboxgl.Map({
@@ -51,124 +114,6 @@ const renderMap = () => {
             zoom: 15
         });
     });
-};
-
-const renderHeader = () => {
-    header.innerHTML = `
-        <div class="header_brand">
-            <img src="/assets/img/logo.png" alt="">
-        </div>
-        <div class="profile">
-            <div class="user">
-                <div class="fa fa-user-circle"></div>
-            </div>
-        </div> 
-    `
-}
-
-const renderFooter = () => {
-    footer.innerHTML = `
-    <div class="categories">
-        <div class="marked icon">
-            <div class="fa fa-map-marker-alt"></div>
-        </div>
-        <div class="favs icon">
-            <div class="fa fa-star"></div>
-        </div>
-        <div class="museums icon">
-            <div class="fa fa-university"></div>
-        </div>
-        <div class="restaurants icon">
-            <div class="fa fa-utensils"></div>
-        </div>
-        <div class="pub icon">
-            <div class="fa fa-glass-martini-alt"></div>
-        </div>
-        <div class="forest icon">
-            <div class="fa fa-tree"></div>
-        </div>
-        <div class="shop icon">
-            <div class="fa fa-shopping-bag"></div>
-        </div>
-    </div>
-    <div class="go_position">
-        <div class="position ">
-            <div class="fa fa-crosshairs "></div>
-            <p>Go to my position</p>
-        </div>
-    </div>
-`
-}
-
-const renderOverlay = () => {
-    overlay.innerHTML = `
-        <header>
-            <h1 class="place">${weather.name} </h1>
-            <div class="close">
-                <div class="fa fa-times"></div>
-            </div>
-        </header>
-
-        <main>
-            <div class="weather_list">
-                <div class="weather_list_item">
-
-                    <div class="time">14:00</div>
-
-                    <div class="weather">
-                        <div class="weather_icon">
-                            <div class="fa fa-cloud"></div>
-                        </div>
-                        <div class="temperature">22°C</div>
-                    </div>
-
-                    <div class="wind">
-                        <div class="direction">
-                            <div class="fa fa-location-arrow"></div>
-                        </div>
-                        <div class="velocity">14.78mph</div>
-                    </div>
-
-                </div>
-                <div class="weather_list_item">
-
-                    <div class="time">14:00</div>
-
-                    <div class="weather">
-                        <div class="weather_icon">
-                            <div class="fa fa-cloud"></div>
-                        </div>
-                        <div class="temperature">22°C</div>
-                    </div>
-
-                    <div class="wind">
-                        <div class="direction">
-                            <div class="fa fa-location-arrow"></div>
-                        </div>
-                        <div class="velocity">14.78mph</div>
-                    </div>
-
-                </div>
-
-
-            </div>
-        </main>
-
-        <footer>
-            <div class="close">
-                <div class="back">
-                    <div class="fa fa-arrow-left"></div>
-                    <p>Get back to map</p>
-                </div>
-            </div>
-            <div class="save_place">
-                <div class="save">
-                    <div class="fa fa-save"></div>
-                    <p>Save place</p>
-                </div>
-            </div>
-        </footer>    
-    `
 
 }
 
@@ -176,13 +121,8 @@ const renderOverlay = () => {
 
 
 
-// 
 
-const eventsMapView = () => {
-    goPosition();
-    weatherConsult();
-
-};
+//TAREA 3: IR A POSICION (boton del footer)
 
 const goPosition = () => {
     const goPosition = document.querySelector(".go_position");
@@ -200,24 +140,44 @@ const goPosition = () => {
     });
 }
 
-const weatherConsult = () => {
-    map.on("click", async (ev) => {
-        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${ev.lngLat.lat}&lon=${ev.lngLat.lng}&appid=083f19514de775916c615a6d803b575e`;
-        const weather = await fetch(url).then(d => d.json()).then(d => d);
-        console.log(weather.name);
-        loadSingleView();  
+
+
+
+
+
+//TAREA 2 Y 4: NAVEGAR EN EL MAPA (eventos del mapa: guardar ultima posicion en localStorage y al hacer click: abrir modal y poner la temperatura del lugar)
+
+const initMapEvents = () => {
+    //move
+    map.on("move", (ev) => {
+        const center = ev.target.getCenter();
+        const zoom = ev.target.getZoom();
+        const storingObj = {
+            lat: center.lat,
+            lng: center.lng,
+            zoom: zoom,
+        };
+        localStorage.setItem("center", JSON.stringify(storingObj))
     })
+    //click
+    map.on("click", async (ev) => {
+        loadSingleView(ev.lngLat);
+    }
+    )
 }
 
 
 
+//AQUI ME HE PERDIDO NO SE QUE HAGO :(
+
+const loadSingleView = async (lngLat) => {
+    await fetchWeather(lngLat);
+    renderOverlay();
 
 
 
-//
 
-const loadSingleView = () => {
-    
+
     overlay.classList.add("opened");
     blackOverlay.classList.add("opened");
 
@@ -230,33 +190,78 @@ const loadSingleView = () => {
     })
 
 
-    //
-    // const closeButtons = overlay.querySelectorAll(".close");
 
-    // closeButtons.addEventListener("click", () => {
-    //     loadMapView();
-    // })
+    const closeButtons = overlay.querySelectorAll(".close");
+
+    closeButtons.forEach(closeButton => {
+        closeButton.addEventListener("click", () => {
+            overlay.classList.remove("opened");
+            blackOverlay.classList.remove("opened");
+        })
+    })
+}
+
+const fetchWeather = async (lngLat) => {
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lngLat.lat}&lon=${lngLat.lng}&appid=083f19514de775916c615a6d803b575e&units=metric`;
+        weather = await fetch(url).then(d => d.json()).then(d => d);
+        console.log(weather);
 }
 
 
 
 
-// const loadMapView = () => {
+const renderOverlay = () => {
+    overlay.innerHTML = `
+        <header>
+            <h1 class="place">${weather.name} </h1>
+            <div class="close">
+                <div class="fas fa-times"></div>
+            </div>
+        </header>
 
-//     // init procedures
-//     overlay.classList.remove("opened");
-//     blackOverlay.classList.remove("opened");
-//     location.hash = "map";
-//     view = "map";
+        <main>
+            <div class="weather_list">
+                <div class="weather_list_item">
+
+                    <div class="humidity">${weather.main.humidity}%</div>
+
+                    <div class="weather">
+                        <div class="weather_icon">
+                            <div class="fas fa-cloud"></div>
+                        </div>
+                        <div class="temperature">${weather.main.temp}°C</div>
+                    </div>
+
+                    <div class="wind">
+                        <div class="direction">
+                            <div class="fas fa-location-arrow" style = "transform: rotate(${weather.wind.deg}deg)"></div>
+                        </div>
+                        <div class="velocity">${weather.wind.speed}mph</div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="close">
+                <div class="back">
+                    <div class="fas fa-arrow-left"></div>
+                    <p>Get back to map</p>
+                </div>
+            </div>
+            <div class="save_place">
+                <div class="save">
+                    <div class="fas fa-save"></div>
+                    <p>Save place</p>
+                </div>
+            </div>
+        </footer>    
+    `
+
+}
 
 
-//     //render
-//     renderMap();
-
-
-//     //events
-//     eventsMapView();
-// };
 
 
 
@@ -265,4 +270,19 @@ const loadSingleView = () => {
 
 
 
-//ORGANIZACIÓN 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

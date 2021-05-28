@@ -1,8 +1,6 @@
 @import "lib/vars";
 @import "lib/mixins";
 @import "lib/reboot";
-@import "lib/fontawesome/font-awesome";
-@import "lib/fontface";
 @import "lib/keyframes";
 
 $corporateColor: rgb(22, 22, 22);
@@ -176,6 +174,8 @@ body {
 }
 
 .overlay {
+    display: flex;
+    flex-direction: column;
     background-color: white;
     border-radius: 40px 40px 0 0;
     padding: $base * 4;
@@ -216,14 +216,14 @@ body {
                 padding: $base * 2 $base;
                 border-bottom: solid 1px rgb(211, 211, 211);
 
-                .hour {
+                .humidity {
                 }
                 .weather {
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
                     .weather_icon {
-                        .fa {
+                        .fas {
                             margin-right: $base;
                         }
                     }
@@ -236,7 +236,7 @@ body {
                     justify-content: space-between;
 
                     .direction {
-                        .fa {
+                        .fas {
                             margin-right: $base;
                         }
                     }
@@ -253,6 +253,10 @@ body {
         justify-content: space-between;
         margin-top: auto;
         padding: $base * 3 0;
+
+        @media screen and (min-width: 768px) {
+            padding: 0;
+        }
         .close {
             .back {
                 display: flex;
@@ -271,7 +275,7 @@ body {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                .fa {
+                .fas {
                     margin-right: $base;
                 }
                 p {
@@ -284,6 +288,7 @@ body {
     @media screen and (min-width: 768px) {
         transform: translateX(-100%);
         border-radius: 0;
+        
         &.opened {
             transform: translateX(0);
         }
