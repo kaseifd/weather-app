@@ -8,9 +8,7 @@ mapboxgl.accessToken = 'pk.eyJ1Ijoia2FzZWlmZCIsImEiOiJja29qcDk3NzQwZTM0Mm9ud3Bwc
 
 window.addEventListener("load", () => {
     loadMapView();
-    renderMap();
-    // renderMarkers();
-    initMapEvents();
+    
 
 
 });
@@ -21,12 +19,11 @@ let map;
 
 const app = document.querySelector(".app");
 const header = app.querySelector(".header");
-const main = app.querySelector(".main");
 const footer = app.querySelector(".footer");
 const overlay = app.querySelector(".overlay");
 const blackOverlay = app.querySelector(".black_overlay");
 
-let weather 
+let weather
 let center
 let zoom
 
@@ -36,24 +33,46 @@ let zoom
 
 //TAREA 1: CARGAR MAPVIEW
 
-let markers;
-let mapPosition;
+let markersPosition;
 
-const loadMarkers = () => {
-    //localStorage
-}
 
-const loadMapInfo = () => {
-    //localStorage
-}
 
 
 const loadMapView = () => {
     loadMarkers();
-    loadMapInfo();
+    initCenter();
+
     renderMapViewHeader();
     renderMapViewMain();
     renderMapViewFooter();
+
+
+}
+
+
+const loadMarkers = () => {
+    const storedMarkers = localStorage.getItem("markers")
+    if (storedMarkers == null) {
+        markersPosition = [];
+    } else {
+        markersPosition = JSON.parse(storedMarkers)
+    }
+
+}
+
+const initCenter = () => {
+    const storedCenter = localStorage.getItem("center")
+    if (storedCenter) {
+        center = [JSON.parse(storedCenter).lng, JSON.parse(storedCenter).lat],
+        zoom = JSON.parse(storedCenter).zoom
+
+    } else {
+        center = [34, 23],
+        zoom = 5
+
+    }
+
+
 }
 
 const renderMapViewHeader = () => {
@@ -71,6 +90,8 @@ const renderMapViewHeader = () => {
 
 const renderMapViewMain = () => {
     renderMap()
+    renderMarkers();
+    initMapEvents();
 }
 
 const renderMapViewFooter = () => {
@@ -109,33 +130,23 @@ const renderMapViewFooter = () => {
 }
 
 const renderMap = () => {
-    
+
     map = new mapboxgl.Map({
         container: "mapa",
         style: "mapbox://styles/kaseifd/ckp11we8w0mx318qu3kurtnfq",
-        center: center,    
+        center: center,
         zoom: zoom,
     });
 
 }
 
-const initCenter = () => {
-    const storedCenter = localStorage.getItem("center")
-    if (storedCenter) {
-        center = [JSON.parse(storedCenter).lng, JSON.parse(storedCenter).lat],
-        zoom =  JSON.parse(storedCenter).zoom
-        
-    } else {
-        center = [34, 23],
-        zoom = 5  
-      
-    }
 
-
+const renderMarkers = () => {
+    markersPosition.forEach(m => {
+        console.log(m);
+        const marker = new mapboxgl.Marker().setLngLat([m.coord.lon, m.coord.lat]).addTo(map);
+    })
 }
-
-
-initCenter();
 
 
 
@@ -213,6 +224,7 @@ const loadSingleView = async (lngLat) => {
         closeButton.addEventListener("click", () => {
             overlay.classList.remove("opened");
             blackOverlay.classList.remove("opened");
+            location.hash = "map";
         })
     })
 }
@@ -221,8 +233,8 @@ const loadSingleView = async (lngLat) => {
 
 const fetchWeather = async (lngLat) => {
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lngLat.lat}&lon=${lngLat.lng}&appid=083f19514de775916c615a6d803b575e&units=metric`;
-        weather = await fetch(url).then(d => d.json()).then(d => d);
-        console.log(weather);
+    weather = await fetch(url).then(d => d.json()).then(d => d);
+    console.log(weather);
 }
 
 
@@ -279,9 +291,27 @@ const renderOverlay = () => {
             </div>
         </footer>    
     `
+    saveMarker()
 }
 
 
+//eventos del footer: go back (la funcion esta mas arriba) y save place (guardar marcado en localStorage y volver al mapView) 
+
+const saveMarker = () => {
+    const save = overlay.querySelector(".save_place")
+    markersPosition.push(weather) 
+    save.addEventListener("click", () => {
+        overlay.classList.remove("opened");
+        blackOverlay.classList.remove("opened");
+        location.hash = "map";
+
+        localStorage.setItem("markers", JSON.stringify(markersPosition))
+        loadMapView();
+    })
+
+    
+
+}
 
 //TAREA 5: 
 
