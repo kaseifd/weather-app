@@ -18,6 +18,11 @@ body {
     min-height: 100vh;
 }
 
+p{
+    margin: 0;
+}
+
+
 .app {
     display: grid;
     grid-template-rows: auto 150px 1fr auto;
@@ -51,10 +56,12 @@ body {
 
     @media screen and (min-width: 768px) {
         grid-template-columns: 350px 1fr auto;
-        grid-template-rows: 100%;
+        grid-template-rows: auto 1fr;
 
         .header {
-            display: none;
+            grid-area: 1 / 1 / span 1 / span 2;
+            z-index: 3;
+
         }
 
         .main {
@@ -97,6 +104,13 @@ body {
             }
         }
     }
+    @media screen and (min-width: 768px) {
+        background-color: transparent;
+        .profile{
+            display: none;
+        }
+    }
+
 }
 
 .footer {
@@ -111,7 +125,10 @@ body {
             display: flex;
             align-items: center;
             justify-content: center;
-            .fa {
+            color: chocolate;
+            user-select: none;
+            cursor: pointer;
+            .fas {
                 margin-right: $base * 2;
                 font-size: $base * 3;
             }
@@ -132,10 +149,14 @@ body {
             .icon {
                 margin-bottom: $base * 2;
                 border-radius: 10px;
-                .fa {
+                width: 60px;
+                height: 60px;
+                .fas {
                     margin: 0;
                     padding: $base * 2;
                     font-size: $base * 3.5;
+                    text-align: center;
+                    width: 100%;
                     
                 }
 
@@ -148,10 +169,14 @@ body {
             .position {
                 margin-bottom: $base * 2;
                 border-radius: 10px;
-                .fa {
+                width: 60px;
+                height: 60px;
+                .fas{
                     margin: 0;
                     padding: $base;
                     font-size: $base * 3.5;
+                    text-align: center;
+                    width: 100%;
                 }
                 p {
                     display: none;
@@ -161,15 +186,6 @@ body {
                 }
             }
         }
-    }
-}
-
-.spinner {
-    visibility: hidden;
-    display: none;
-    &.opened {
-        visibility: visible;
-        display: block;
     }
 }
 
@@ -200,7 +216,8 @@ body {
             font-size: $base * 3;
         }
         .close {
-            .fa {
+            cursor: pointer;
+            .fas {
                 font-size: $base * 3;
             }
         }
@@ -217,7 +234,21 @@ body {
                 border-bottom: solid 1px rgb(211, 211, 211);
 
                 .humidity {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    .drop{
+                        .fas{
+                            margin-right: $base;
+
+                        }
+                    }
+                    .humidity_percentage{
+
+                    }
+
                 }
+
                 .weather {
                     display: flex;
                     align-items: center;
@@ -258,19 +289,24 @@ body {
             padding: 0;
         }
         .close {
+            cursor: pointer;
             .back {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                .fa {
+                .fas {
                     margin-right: $base;
                 }
                 p {
                     margin: 0;
+                    user-select: none;
+
                 }
             }
         }
         .save_place {
+            cursor: pointer;
+
             .save {
                 display: flex;
                 align-items: center;
@@ -280,6 +316,8 @@ body {
                 }
                 p {
                     margin: 0;
+                    user-select: none;
+
                 }
             }
         }
@@ -310,9 +348,27 @@ body {
     }
 }
 
+.spinner {
+    visibility: hidden;
+    display: none;
+    &.opened {
+        visibility: visible;
+        display: block;
+    }
+}
+
 #mapa {
     height: 100%;
 }
+
+
+
+
+
+
+
+
+
 
 .mapboxgl-ctrl-attrib,
 .mapboxgl-ctrl-logo {
