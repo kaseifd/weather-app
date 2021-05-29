@@ -12,7 +12,10 @@ window.addEventListener("load", () => {
     // renderMarkers();
     initMapEvents();
 
+
 });
+
+
 
 let map;
 
@@ -24,6 +27,9 @@ const overlay = app.querySelector(".overlay");
 const blackOverlay = app.querySelector(".black_overlay");
 
 let weather 
+let center
+let zoom
+
 
 
 
@@ -62,9 +68,11 @@ const renderMapViewHeader = () => {
         </div> 
     `
 }
+
 const renderMapViewMain = () => {
     renderMap()
 }
+
 const renderMapViewFooter = () => {
     footer.innerHTML = `
     <div class="categories">
@@ -101,22 +109,33 @@ const renderMapViewFooter = () => {
 }
 
 const renderMap = () => {
+    
     map = new mapboxgl.Map({
         container: "mapa",
         style: "mapbox://styles/kaseifd/ckp11we8w0mx318qu3kurtnfq",
-        center: [0, 60],
-        zoom: 9,
-    });
-
-    navigator.geolocation.getCurrentPosition(({ coords }) => {
-        map.flyTo({
-            center: [coords.longitude, coords.latitude],
-            zoom: 15
-        });
+        center: center,    
+        zoom: zoom,
     });
 
 }
 
+const initCenter = () => {
+    const storedCenter = localStorage.getItem("center")
+    if (storedCenter) {
+        center = [JSON.parse(storedCenter).lng, JSON.parse(storedCenter).lat],
+        zoom =  JSON.parse(storedCenter).zoom
+        
+    } else {
+        center = [34, 23],
+        zoom = 5  
+      
+    }
+
+
+}
+
+
+initCenter();
 
 
 
@@ -145,7 +164,7 @@ const goPosition = () => {
 
 
 
-//TAREA 2 Y 4: NAVEGAR EN EL MAPA (eventos del mapa: guardar ultima posicion en localStorage y al hacer click: abrir modal y poner la temperatura del lugar)
+//TAREA 2: NAVEGAR EN EL MAPA (eventos del mapa: guardar ultima posicion en localStorage y al hacer click: abrir modal)
 
 const initMapEvents = () => {
     //move
@@ -168,14 +187,11 @@ const initMapEvents = () => {
 
 
 
-//AQUI ME HE PERDIDO NO SE QUE HAGO :(
+
 
 const loadSingleView = async (lngLat) => {
     await fetchWeather(lngLat);
     renderOverlay();
-
-
-
 
 
     overlay.classList.add("opened");
@@ -201,6 +217,8 @@ const loadSingleView = async (lngLat) => {
     })
 }
 
+//TAREA 4: CONSULTAR TEMPERATURA (conectar a la api con fetch, recuperar los datos y pintarlos en el modal)
+
 const fetchWeather = async (lngLat) => {
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lngLat.lat}&lon=${lngLat.lng}&appid=083f19514de775916c615a6d803b575e&units=metric`;
         weather = await fetch(url).then(d => d.json()).then(d => d);
@@ -208,12 +226,10 @@ const fetchWeather = async (lngLat) => {
 }
 
 
-
-
 const renderOverlay = () => {
     overlay.innerHTML = `
         <header>
-            <h1 class="place">${weather.name} </h1>
+            <h1 class="place">${weather.name}</h1>
             <div class="close">
                 <div class="fas fa-times"></div>
             </div>
@@ -223,20 +239,25 @@ const renderOverlay = () => {
             <div class="weather_list">
                 <div class="weather_list_item">
 
-                    <div class="humidity">${weather.main.humidity}%</div>
+                    <div class="humidity">
+                        <div class="drop">
+                            <div class="fas fa-tint"></div>
+                        </div>
+                        <p class="humidity_percentage">${weather.main.humidity}%</p>
+                    </div>
 
                     <div class="weather">
                         <div class="weather_icon">
                             <div class="fas fa-cloud"></div>
                         </div>
-                        <div class="temperature">${weather.main.temp}°C</div>
+                        <p class="temperature">${weather.main.temp}°C</p>
                     </div>
 
                     <div class="wind">
                         <div class="direction">
                             <div class="fas fa-location-arrow" style = "transform: rotate(${weather.wind.deg}deg)"></div>
                         </div>
-                        <div class="velocity">${weather.wind.speed}mph</div>
+                        <p class="velocity">${weather.wind.speed}mph</p>
                     </div>
 
                 </div>
@@ -258,9 +279,11 @@ const renderOverlay = () => {
             </div>
         </footer>    
     `
-
 }
 
+
+
+//TAREA 5: 
 
 
 
