@@ -15,6 +15,7 @@ window.addEventListener("load", () => {
 
 
 
+
 let map;
 
 const app = document.querySelector(".app");
@@ -69,10 +70,7 @@ const initCenter = () => {
     } else {
         center = [34, 23],
         zoom = 5
-
     }
-
-
 }
 
 const renderMapViewHeader = () => {
@@ -121,7 +119,7 @@ const renderMapViewFooter = () => {
     </div>
     <div class="go_position">
         <div class="position ">
-            <div class="fas fa-crosshairs "></div>
+            <div class="fas fa-crosshairs"></div>
             <p>Go to my position</p>
         </div>
     </div>
@@ -143,8 +141,8 @@ const renderMap = () => {
 
 const renderMarkers = () => {
     markersPosition.forEach(m => {
-        console.log(m);
         const marker = new mapboxgl.Marker().setLngLat([m.coord.lon, m.coord.lat]).addTo(map);
+
     })
 }
 
@@ -237,8 +235,33 @@ const fetchWeather = async (lngLat) => {
     console.log(weather);
 }
 
+let icon 
+const changeIcon = () => {
+    
+    if (weather.weather[0].main == "Clouds") {
+        icon = '<div class="fas fa-cloud"></div>' 
+    }
+    if (weather.weather[0].main == "Clear") {
+        icon = '<div class="fas fa-sun"></div>' 
+    }
+    if (weather.weather[0].main == "Snow") {
+        icon = '<div class="fas fa-snowflake"></div>' 
+    }
+    if (weather.weather[0].main == "Thunderstorm" || weather.weather[0].main == "Rain") {
+        icon = '<div class="fas fa-cloud-showers-heavy"></div>' 
+    }
+    if (weather.weather[0].main == "Drizzle") {
+        icon = '<div class="fas fa-cloud-rain"></div>' 
+    }
+}
+
+
+
+
+
 
 const renderOverlay = () => {
+    changeIcon()
     overlay.innerHTML = `
         <header>
             <h1 class="place">${weather.name}</h1>
@@ -260,7 +283,7 @@ const renderOverlay = () => {
 
                     <div class="weather">
                         <div class="weather_icon">
-                            <div class="fas fa-cloud"></div>
+                            ${icon}
                         </div>
                         <p class="temperature">${weather.main.temp}°C</p>
                     </div>
@@ -313,7 +336,6 @@ const saveMarker = () => {
 
 }
 
-//TAREA 5: 
 
 
 
