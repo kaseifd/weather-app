@@ -2,6 +2,7 @@
 @import "lib/mixins";
 @import "lib/reboot";
 @import "lib/keyframes";
+@import "lib/fontface";
 
 $corporateColor: rgb(22, 22, 22);
 
@@ -125,7 +126,7 @@ p{
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #d2691e;
+            color: chocolate;
             user-select: none;
             cursor: pointer;
             .fas {
