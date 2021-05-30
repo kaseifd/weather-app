@@ -387,7 +387,8 @@ h1{
     visibility: hidden;
     z-index: 99;
     color: chocolate;
-    font-size: $base * 3;
+    font-size: $base * 5;
+    background-color: rgba(black, 0.9);
     &.opened {
         visibility: visible;
     }
