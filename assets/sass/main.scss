@@ -157,6 +157,8 @@ h1{
                 border-radius: 10px;
                 width: 60px;
                 height: 60px;
+                transition: all 350ms ease-in-out;
+
                 .fas {
                     margin: 0;
                     padding: $base * 2;
@@ -168,6 +170,8 @@ h1{
 
                 &:hover{
                     background-color: rgb(39, 39, 39);
+                    color: chocolate;
+                    transition: all 350ms ease-in-out;
                 }
             }
         }
@@ -333,14 +337,17 @@ h1{
         }
         .save_place {
             cursor: pointer;
+            padding: $base/2 $base * 2;
+            background-color: chocolate;
+            border-radius: 20px;
 
             .save {
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                color: white;
                 .fas {
                     margin-right: $base;
-                    color: chocolate;
                 }
                 p {
                     margin: 0;
@@ -378,10 +385,11 @@ h1{
 
 .spinner {
     visibility: hidden;
-    display: none;
+    z-index: 99;
+    color: chocolate;
+    font-size: $base * 3;
     &.opened {
         visibility: visible;
-        display: block;
     }
 }
 

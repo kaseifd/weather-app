@@ -23,6 +23,8 @@ const header = app.querySelector(".header");
 const footer = app.querySelector(".footer");
 const overlay = app.querySelector(".overlay");
 const blackOverlay = app.querySelector(".black_overlay");
+const spinner = document.querySelector(".spinner")
+
 
 let weather
 let center
@@ -227,6 +229,19 @@ const loadSingleView = async (lngLat) => {
     })
 }
 
+
+
+const loadSpinner = () => {
+    spinner.classList.add("opened")
+}
+
+const unloadSpinner = () => {
+    spinner.classList.remove("opened")
+    
+}
+
+
+
 //TAREA 4: CONSULTAR TEMPERATURA (conectar a la api con fetch, recuperar los datos y pintarlos en el modal)
 
 const fetchWeather = async (lngLat) => {
@@ -342,18 +357,22 @@ const renderOverlay = () => {
 
 const saveMarker = () => {
     const save = overlay.querySelector(".save_place")
-    markersPosition.push(weather) 
+    console.log(markersPosition);
+    console.log(weather); 
     save.addEventListener("click", () => {
+        markersPosition.push(weather)
+
+        loadSpinner()
+        setTimeout(() => {
+            unloadSpinner()
+            loadMapView();
+        }, 800)
         overlay.classList.remove("opened");
         blackOverlay.classList.remove("opened");
         location.hash = "map";
 
         localStorage.setItem("markers", JSON.stringify(markersPosition))
-        loadMapView();
     })
-
-    
-
 }
 
 
