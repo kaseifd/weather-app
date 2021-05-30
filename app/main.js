@@ -236,6 +236,7 @@ const fetchWeather = async (lngLat) => {
 }
 
 let icon 
+let weatherImage
 const changeIcon = () => {
     
     if (weather.weather[0].main == "Clouds") {
@@ -256,13 +257,32 @@ const changeIcon = () => {
 }
 
 
-
+const changeImage = () => {
+    
+    if (weather.weather[0].main == "Clouds") {
+        weatherImage = '<img src="assets/img/cloudy.jpg" alt="">' 
+    }
+    if (weather.weather[0].main == "Clear") {
+        weatherImage = '<img src="assets/img/sunny.jpg" alt="">' 
+    }
+    if (weather.weather[0].main == "Snow") {
+        weatherImage = '<img src="assets/img/snow.jpg" alt="">' 
+    }
+    if (weather.weather[0].main == "Thunderstorm" || weather.weather[0].main == "Rain") {
+        weatherImage = '<img src="assets/img/storm.jpg" alt="">' 
+    }
+    if (weather.weather[0].main == "Drizzle") {
+        weatherImage = '<img src="assets/img/drizzle.jpg" alt="">' 
+    }
+}
 
 
 
 const renderOverlay = () => {
     changeIcon()
+    changeImage()
     overlay.innerHTML = `
+    <div class="weather_image">${weatherImage}</div>
         <header>
             <h1 class="place">${weather.name}</h1>
             <div class="close">

@@ -23,6 +23,11 @@ p{
     margin: 0;
 }
 
+h1{
+    line-height: $base * 3;
+
+}
+
 
 .app {
     display: grid;
@@ -201,6 +206,11 @@ p{
     opacity: 0;
     transform: translateY(100%);
     transition: all 350ms ease;
+    position: relative;
+    overflow: hidden;
+
+    
+
 
     &.opened {
         visibility: visible;
@@ -208,6 +218,23 @@ p{
         transform: translateY(0);
         transition: all 350ms ease;
     }
+
+    .weather_image{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        z-index: -1;
+        opacity: .5;
+        
+        img{
+            width: auto;
+            height: 100%;
+        }
+    }
+
+
     header {
         display: flex;
         justify-content: space-between;
@@ -232,7 +259,7 @@ p{
                 align-items: center;
                 justify-content: space-between;
                 padding: $base * 2 $base;
-                border-bottom: solid 1px rgb(211, 211, 211);
+                border-bottom: solid 1px chocolate;
 
                 .humidity {
                     display: flex;
@@ -284,7 +311,6 @@ p{
         align-items: center;
         justify-content: space-between;
         margin-top: auto;
-        padding: $base * 3 0;
 
         @media screen and (min-width: 768px) {
             padding: 0;
@@ -314,6 +340,7 @@ p{
                 justify-content: center;
                 .fas {
                     margin-right: $base;
+                    color: chocolate;
                 }
                 p {
                     margin: 0;
