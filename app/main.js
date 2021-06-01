@@ -247,7 +247,6 @@ const unloadSpinner = () => {
 const fetchWeather = async (lngLat) => {
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lngLat.lat}&lon=${lngLat.lng}&appid=083f19514de775916c615a6d803b575e&units=metric`;
     weather = await fetch(url).then(d => d.json()).then(d => d);
-    console.log(weather);
 }
 
 let icon 
@@ -357,8 +356,6 @@ const renderOverlay = () => {
 
 const saveMarker = () => {
     const save = overlay.querySelector(".save_place")
-    console.log(markersPosition);
-    console.log(weather); 
     save.addEventListener("click", () => {
         markersPosition.push(weather)
 
