@@ -2,6 +2,13 @@ import '../assets/sass/main.scss';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl from 'mapbox-gl';
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2FzZWlmZCIsImEiOiJja29qcDk3NzQwZTM0Mm9ud3BwcTRkMW0yIn0.4XuTSFjZUS1tI0MGezz4Qw';
+import logo from '../assets/img/logo.png';
+import cloudy from '../assets/img/cloudy.jpg';
+import drizzle from '../assets/img/drizzle.jpg';
+import snow from '../assets/img/snow.jpg';
+import storm from '../assets/img/storm.jpg';
+import sunny from '../assets/img/sunny.jpg';
+
 
 
 //ORGANIZACIÓN 
@@ -78,7 +85,7 @@ const initCenter = () => {
 const renderMapViewHeader = () => {
     header.innerHTML = `
         <div class="header_brand">
-            <img src="/assets/img/logo.png" alt="">
+        <img src="${logo}" alt="";
         </div>
         <div class="profile">
             <div class="user">
@@ -274,19 +281,19 @@ const changeIcon = () => {
 const changeImage = () => {
     
     if (weather.weather[0].main == "Clouds") {
-        weatherImage = '<img src="assets/img/cloudy.jpg" alt="">' 
+        weatherImage = `<img src="${cloudy}" alt="">`
     }
     if (weather.weather[0].main == "Clear") {
-        weatherImage = '<img src="assets/img/sunny.jpg" alt="">' 
+        weatherImage = `<img src="${sunny}" alt="">` 
     }
     if (weather.weather[0].main == "Snow") {
-        weatherImage = '<img src="assets/img/snow.jpg" alt="">' 
+        weatherImage = `<img src="${snow}" alt="">`
     }
     if (weather.weather[0].main == "Thunderstorm" || weather.weather[0].main == "Rain") {
-        weatherImage = '<img src="assets/img/storm.jpg" alt="">' 
+        weatherImage = `<img src="${storm}" alt="">`
     }
     if (weather.weather[0].main == "Drizzle") {
-        weatherImage = '<img src="assets/img/drizzle.jpg" alt="">' 
+        weatherImage = `<img src="${drizzle}" alt="">` 
     }
 }
 
